@@ -1,15 +1,33 @@
-New update relesed....
+name: Node.js CI
 
-New added
-     .gdrive
-     .mfire
-     .twitter
-     .genisisila
-     .baiscope
-     .sinhalasub
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-Fixed 
-       youtube commands..
+jobs:
+  build:
 
+    runs-on: ubuntu-latest
 
-New UI 🤍
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: npm start
